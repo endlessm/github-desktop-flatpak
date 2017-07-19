@@ -1,0 +1,66 @@
+From b1d7a32ee33e37a011889011db375842241c11e8 Mon Sep 17 00:00:00 2001
+From: gengjiawen <technicalcute@gmail.com>
+Date: Sun, 25 Jun 2017 16:49:38 +0800
+Subject: [PATCH 2/3] try to fix linux prompt
+
+---
+ app/src/lib/globals.d.ts  | 3 +++
+ app/src/lib/open-shell.ts | 8 +++++++-
+ app/webpack.common.js     | 1 +
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/app/src/lib/globals.d.ts b/app/src/lib/globals.d.ts
+index b540741df..6edf7b40c 100644
+--- a/app/src/lib/globals.d.ts
++++ b/app/src/lib/globals.d.ts
+@@ -13,6 +13,9 @@ declare const __DARWIN__: boolean
+ /** Is the app being built to run on Win32? */
+ declare const __WIN32__: boolean
+ 
++/** Is the app being built to run on Linux? */
++declare const __LINUX__: boolean
++
+ /**
+  * The commit id of the repository HEAD at build time.
+  * Represented as a 40 character SHA-1 hexadecimal digest string.
+diff --git a/app/src/lib/open-shell.ts b/app/src/lib/open-shell.ts
+index 24926805a..4a7e4ba30 100644
+--- a/app/src/lib/open-shell.ts
++++ b/app/src/lib/open-shell.ts
+@@ -15,6 +15,11 @@ export function openShell(fullPath: string, shell?: string) {
+     return spawn('START', [shell || 'cmd'], { shell: true, cwd: fullPath })
+   }
+ 
++  if (__LINUX__) {
++    const commandArgs = ['--working-directory', fullPath]
++    return spawn('gnome-terminal', commandArgs, { 'shell': true })
++  }
++
+   return fatalError('Unsupported OS')
+ }
+ 
+@@ -22,7 +27,8 @@ export function isGitOnPath(): Promise<boolean> {
+   // Modern versions of macOS ship with a Git shim that guides you through
+   // the process of setting everything up. We trust this is available, so
+   // don't worry about looking for it here.
+-  if (__DARWIN__) {
++  // I decide linux user have git too :)
++  if (__DARWIN__ || __LINUX__) {
+     return Promise.resolve(true)
+   }
+ 
+diff --git a/app/webpack.common.js b/app/webpack.common.js
+index 243b2de24..b108abdc3 100644
+--- a/app/webpack.common.js
++++ b/app/webpack.common.js
+@@ -46,6 +46,7 @@ const replacements = {
+   ),
+   __DARWIN__: process.platform === 'darwin',
+   __WIN32__: process.platform === 'win32',
++  __LINUX__: process.platform === 'linux',
+   __DEV__: environment === 'development',
+   __RELEASE_ENV__: JSON.stringify(environment),
+   __SHA__: JSON.stringify(revParse(path.resolve(__dirname, '../.git'), 'HEAD')),
+-- 
+2.11.0
+

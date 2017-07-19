@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GitHub Desktop
+GenericName=Git Client
+Comment=Simple collaboration from your desktop
+Exec=/usr/bin/flatpak run com.github.Desktop
+Terminal=false
+Icon=com.github.Desktop
+Categories=RevisionControl;Development;
+StartupNotify=true

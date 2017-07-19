@@ -1,0 +1,87 @@
+{
+    "app-id": "com.github.Desktop",
+    "base": "io.atom.electron.BaseApp",
+    "base-version": "master",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "1.4",
+    "sdk": "org.freedesktop.Sdk",
+    "command": "GitHub Desktop",
+    "finish-args": [
+        "--socket=x11",
+        "--device=dri",
+        "--filesystem=home",
+        "--share=ipc",
+        "--share=network",
+        "--talk-name=org.freedesktop.Notifications",
+        "--talk-name=org.freedesktop.secrets"
+    ],
+    "modules": [
+        {
+            "name": "nodejs",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://nodejs.org/dist/v8.1.4/node-v8.1.4.tar.xz",
+                    "sha256": "a83c86445f79749c46fd4f2c4e681a3e5bb51b2bde5dc7aed1dc38e4e242c301"
+                }
+            ]
+        },
+        {
+            "name": "libsecret",
+            "config-opts": ["--disable-static", "--disable-manpages"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "git://git.gnome.org/libsecret"
+                }
+            ]
+        },
+        {
+            "name": "desktop",
+            "build-options": {
+                "build-args": [
+                    "--share=network"
+                ]
+            },
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/desktop/desktop",
+                    "branch": "release-0.7.0"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/0001-add-missing-file.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/0002-try-to-fix-linux-prompt.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "patches/0003-Run-on-linux-platform.patch"
+                },
+                {
+                    "type": "file",
+                    "path": "Makefile"
+                },
+                {
+                    "type": "file",
+                    "path": "configure"
+                },
+                {
+                    "type": "file",
+                    "path": "resources/com.github.Desktop.appdata.xml"
+                },
+                {
+                    "type": "file",
+                    "path": "resources/com.github.Desktop.desktop"
+                },
+                {
+                    "type": "file",
+                    "path": "resources/com.github.Desktop.png"
+                }
+            ]
+        }
+    ]
+}

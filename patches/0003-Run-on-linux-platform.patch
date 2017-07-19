@@ -1,0 +1,29 @@
+From 408d797887de8ac24bd04f8d39076ad32925c2cb Mon Sep 17 00:00:00 2001
+From: Philip Chimento <philip@endlessm.com>
+Date: Mon, 10 Jul 2017 17:06:12 -0700
+Subject: [PATCH 3/3] Run on linux platform
+
+Without this, you get the message "I dunno how to run on x64 :("
+---
+ script/run.js | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/script/run.js b/script/run.js
+index 0cba8ec8f..5cf4e30f0 100644
+--- a/script/run.js
++++ b/script/run.js
+@@ -19,8 +19,10 @@ if (process.platform === 'darwin') {
+   )
+ } else if (process.platform === 'win32') {
+   binaryPath = path.join(distPath, `${productName}.exe`)
++} else if (process.platform === 'linux') {
++  binaryPath = path.join(distPath, productName);
+ } else {
+-  console.error(`I dunno how to run on ${process.arch} :(`)
++  console.error(`I dunno how to run on ${process.platform} ${process.arch} :(`)
+   process.exit(1)
+ }
+ 
+-- 
+2.11.0
+

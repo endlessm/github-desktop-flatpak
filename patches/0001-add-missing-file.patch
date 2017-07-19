@@ -1,0 +1,22 @@
+From fb4a54c9fb254d5a1ac118936190d523f0696297 Mon Sep 17 00:00:00 2001
+From: gengjiawen <technicalcute@gmail.com>
+Date: Thu, 22 Jun 2017 00:05:46 +0800
+Subject: [PATCH 1/3] add missing file
+
+---
+ app/static/linux/ask-pass-trampoline.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100755 app/static/linux/ask-pass-trampoline.sh
+
+diff --git a/app/static/linux/ask-pass-trampoline.sh b/app/static/linux/ask-pass-trampoline.sh
+new file mode 100755
+index 000000000..8b9ce366b
+--- /dev/null
++++ b/app/static/linux/ask-pass-trampoline.sh
+@@ -0,0 +1,3 @@
++#!/bin/sh
++
++ELECTRON_RUN_AS_NODE=1 "$DESKTOP_PATH" "$DESKTOP_ASKPASS_SCRIPT" "$@"
+-- 
+2.11.0
+

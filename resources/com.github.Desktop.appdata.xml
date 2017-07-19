@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>com.github.Desktop.desktop</id>
+    <metadata_license>CC-BY-SA-3.0</metadata_license>
+    <project_license>MIT</project_license>
+    <name>GitHub Desktop</name>
+    <summary>Simple collaboration from your desktop</summary>
+    <description>
+        <p>
+            GitHub Desktop is an open source GitHub app.
+        </p>
+    </description>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://cloud.githubusercontent.com/assets/359239/26094502/a1f56d02-3a5d-11e7-8799-23c7ba5e5106.png</image>
+        </screenshot>
+    </screenshots>
+    <url type="homepage">https://desktop.github.com/</url>
+</component>
